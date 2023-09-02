@@ -66,7 +66,7 @@ class CustomUserViewSet(UserViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             author_serializer = SubscriptionDisplaySerializer(
-                 author, context={'request': request})
+                author, context={'request': request})
             return Response(
                 author_serializer.data, status=status.HTTP_201_CREATED
             )

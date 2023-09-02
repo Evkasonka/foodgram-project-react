@@ -108,7 +108,7 @@ class RecipeViewSet(ModelViewSet):
             return Response(
                 shopping_cart.data,
                 status=HTTP_201_CREATED
-                )
+            )
         recipe_in_shopping_cart = get_object_or_404(
             IsInShoppingCart,
             user=request.user,

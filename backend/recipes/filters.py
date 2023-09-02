@@ -22,7 +22,7 @@ class RecipeFilter(rest_framework.FilterSet):
         method='get_is_favorited')
 
     is_in_shopping_cart = rest_framework.BooleanFilter(
-      method='get_is_in_shopping_cart')
+        method='get_is_in_shopping_cart')
 
     class Meta:
         model = Recipe
