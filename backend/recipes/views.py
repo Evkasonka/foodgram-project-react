@@ -15,8 +15,7 @@ from recipes.models import (Ingredient,
                             IsFavorited,
                             IsInShoppingCart,
                             Recipe,
-                            Tag,
-                            )
+                            Tag,)
 from api.serializers import (IngredientSerializer,
                              RecipeReadSerializer,
                              RecipeWriteSerializer,
@@ -113,8 +112,7 @@ class RecipeViewSet(ModelViewSet):
         recipe_in_shopping_cart = get_object_or_404(
             IsInShoppingCart,
             user=request.user,
-            recipe=recipe
-        )
+            recipe=recipe)
         recipe_in_shopping_cart.delete()
         return Response(status=HTTP_204_NO_CONTENT)
 

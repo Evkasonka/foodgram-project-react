@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -136,8 +136,8 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-   'LOGIN_FIELD': 'email',
-   'SERIALIZERS': {
+    'LOGIN_FIELD': 'email',
+    'SERIALIZERS': {
        'user_create': 'api.serializers.CustomUserCreateSerializer',
        'user': 'api.serializers.CustomUserSerializer',
        'current_user': 'api.serializers.CustomUserSerializer',

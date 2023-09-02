@@ -9,13 +9,13 @@ class Ingredient(models.Model):
         max_length=200,
         verbose_name='Ингредиент',
         help_text='Ингредиент'
-        )
+    )
 
     measurement_unit = models.CharField(
         max_length=200,
         verbose_name='Единица измерения',
         help_text='Единица измерения'
-        )
+    )
 
     class Meta:
         verbose_name = 'Ингредиент'
@@ -73,7 +73,7 @@ class Recipe(models.Model):
         max_length=200,
         verbose_name='Название',
         help_text='Название'
-        )
+    )
 
     image = models.ImageField(
         upload_to='recipes/',
@@ -138,7 +138,7 @@ class IngredientAmountInRecipe(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Рецепт',
         help_text='Рецепт'
-        )
+    )
 
     amount = models.PositiveSmallIntegerField(
         verbose_name='Количество',

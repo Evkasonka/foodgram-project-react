@@ -13,28 +13,23 @@ class IngredientSearchFilter(rest_framework.FilterSet):
 class RecipeFilter(rest_framework.FilterSet):
     author = rest_framework.CharFilter(
         field_name='author__id',
-        method='filter_author'
-        )
+        method='filter_author')
 
     tags = rest_framework.AllValuesMultipleFilter(
-        field_name='tags__slug'
-        )
+        field_name='tags__slug')
 
     is_favorited = rest_framework.BooleanFilter(
-        method='get_is_favorited'
-        )
+        method='get_is_favorited')
 
     is_in_shopping_cart = rest_framework.BooleanFilter(
-      method='get_is_in_shopping_cart'
-      )
+      method='get_is_in_shopping_cart')
 
     class Meta:
         model = Recipe
         fields = ('author',
                   'tags',
                   'is_favorited',
-                  'is_in_shopping_cart',
-                  )
+                  'is_in_shopping_cart',)
 
     def filter_author(self, queryset, *args):
         user = self.request.query_params.get('author')
