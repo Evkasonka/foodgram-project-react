@@ -14,7 +14,8 @@ class Ingredient(models.Model):
     )
 
     measurement_unit = models.CharField(
-        max_length=200, verbose_name="Единица измерения", help_text="Единица измерения"
+        max_length=200, verbose_name="Единица измерения",
+        help_text="Единица измерения"
     )
 
     class Meta:
@@ -75,7 +76,8 @@ class Recipe(models.Model):
         help_text="Картинка, закодированная в Base64",
     )
 
-    text = models.TextField(verbose_name="Описание", help_text="Описание рецепта")
+    text = models.TextField(verbose_name="Описание",
+                            help_text="Описание рецепта")
 
     ingredients = models.ManyToManyField(
         Ingredient,
@@ -100,7 +102,8 @@ class Recipe(models.Model):
         ),
     )
     pub_date = models.DateTimeField(
-        auto_now_add=True, verbose_name="дата публикации", help_text="дата публикации"
+        auto_now_add=True, verbose_name="дата публикации",
+        help_text="дата публикации"
     )
 
     class Meta:

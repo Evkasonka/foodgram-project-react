@@ -30,7 +30,8 @@ class CustomUserSerializer(UserSerializer):
 
     class Meta:
         model = User
-        fields = ("email", "id", "username", "first_name", "last_name", "is_subscribed")
+        fields = ("email", "id", "username", "first_name",
+                  "last_name", "is_subscribed")
 
     def get_is_subscribed(self, object):
         request = self.context.get("request")
@@ -42,7 +43,8 @@ class CustomUserSerializer(UserSerializer):
 class CustomUserCreateSerializer(UserCreateSerializer):
     class Meta:
         model = User
-        fields = ("email", "id", "username", "first_name", "last_name", "password")
+        fields = ("email", "id", "username", "first_name",
+                  "last_name", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
 
@@ -69,7 +71,8 @@ class InRecipeSubscriptionSerializer(serializers.ModelSerializer):
 
 class SubscriptionDisplaySerializer(CustomUserSerializer):
     recipes = serializers.SerializerMethodField(method_name="get_recipes")
-    recipes_count = serializers.SerializerMethodField(method_name="get_recipes_count")
+    recipes_count = serializers.SerializerMethodField(
+        method_name="get_recipes_count")
 
     class Meta:
         model = User
@@ -93,7 +96,8 @@ class SubscriptionDisplaySerializer(CustomUserSerializer):
         recipes = obj.recipes.all()
         if limit:
             recipes = recipes[: int(limit)]
-        serializer = RecipePreviewSerializer(recipes, many=True, read_only=True)
+        serializer = RecipePreviewSerializer(
+            recipes, many=True, read_only=True)
         return serializer.data
 
 
@@ -134,7 +138,8 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
 class IngredientInRecipeSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField(source="ingredient.id")
     name = serializers.ReadOnlyField(source="ingredient.name")
-    measurement_unit = serializers.ReadOnlyField(source="ingredient.measurement_unit")
+    measurement_unit = serializers.ReadOnlyField(
+        source="ingredient.measurement_unit")
 
     class Meta:
         model = IngredientAmountInRecipe
@@ -145,7 +150,8 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
     author = CustomUserSerializer(read_only=True)
     ingredients = SerializerMethodField(method_name="get_ingredients")
-    is_favorited = SerializerMethodField(read_only=True, method_name="get_is_favorited")
+    is_favorited = SerializerMethodField(
+        read_only=True, method_name="get_is_favorited")
     is_in_shopping_cart = SerializerMethodField(
         read_only=True, method_name="get_is_in_shopping_cart"
     )

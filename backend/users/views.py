@@ -49,7 +49,9 @@ class CustomUserViewSet(UserViewSet):
             author_serializer = SubscriptionDisplaySerializer(
                 author, context={"request": request}
             )
-            return Response(author_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(
+                author_serializer.data,
+                status=status.HTTP_201_CREATED)
         subscription = get_object_or_404(
             Subscription, subscriber=request.user, author=author
         )
@@ -66,7 +68,8 @@ class CustomUserViewSet(UserViewSet):
     def get_subscriptions(self, request):
         authors = User.objects.filter(author__subscriber=request.user)
         paginator = PageNumberPagination()
-        result_pages = paginator.paginate_queryset(queryset=authors, request=request)
+        result_pages = paginator.paginate_queryset(
+            queryset=authors, request=request)
         serializer = SubscriptionDisplaySerializer(
             result_pages, context={"request": request}, many=True
         )
