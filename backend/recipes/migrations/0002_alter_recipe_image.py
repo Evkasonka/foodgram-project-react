@@ -4,15 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('recipes', '0001_initial'),
+        ("recipes", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='recipe',
-            name='image',
-            field=models.ImageField(help_text='Картинка, закодированная в Base64', upload_to='media/recipes/images/', verbose_name='Картинка'),
+            model_name="recipe",
+            name="image",
+            field=models.ImageField(
+                help_text="Картинка, закодированная в Base64",
+                upload_to="media/recipes/images/",
+                verbose_name="Картинка",
+            ),
         ),
     ]

@@ -4,21 +4,23 @@ from users.models import User, Subscription
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id',
-                    'username',
-                    'first_name',
-                    'last_name',
-                    'password',
-                    'email',
-                    )
-    list_filter = ('username', 'email')
+    list_display = (
+        "id",
+        "username",
+        "first_name",
+        "last_name",
+        "password",
+        "email",
+    )
+    list_filter = ("username", "email")
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('id',
-                    'subscriber',
-                    'author',
-                    )
+    list_display = (
+        "id",
+        "subscriber",
+        "author",
+    )
 
 
 admin.site.register(User, UserAdmin)

@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 
 from foodgram.errors import ErrorMesage
 
-REGEX_FOR_USERNAME = re.compile(r'^[\w.@+-]+')
+REGEX_FOR_USERNAME = re.compile(r"^[\w.@+-]+")
 
 
 def validate_username(name):

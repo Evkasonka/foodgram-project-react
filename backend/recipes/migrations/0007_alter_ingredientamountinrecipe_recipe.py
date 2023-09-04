@@ -5,15 +5,20 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('recipes', '0006_alter_recipe_image'),
+        ("recipes", "0006_alter_recipe_image"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='ingredientamountinrecipe',
-            name='recipe',
-            field=models.ForeignKey(help_text='Рецепт', on_delete=django.db.models.deletion.CASCADE, related_name='ingredientAmountInRecipe', to='recipes.recipe', verbose_name='Рецепт'),
+            model_name="ingredientamountinrecipe",
+            name="recipe",
+            field=models.ForeignKey(
+                help_text="Рецепт",
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="ingredientAmountInRecipe",
+                to="recipes.recipe",
+                verbose_name="Рецепт",
+            ),
         ),
     ]
