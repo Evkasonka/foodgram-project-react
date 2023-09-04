@@ -2,23 +2,14 @@ import os
 from pathlib import Path
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+SECRET_KEY = os.getenv('SECRET_KEYS',)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a!(n-d0f3!=c=wt6ggw%&s-o-9wk&@$=n(h5ya!so0gsotb8uy'
+DEBUG = os.getenv("DEBUG_MODE", False) == "True"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
-
-# Application definition
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS', '*'), '*']
 
 INSTALLED_APPS = [
     'api.apps.ApiConfig',
@@ -83,9 +74,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -102,9 +90,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = 'ru-Ru'
 
 TIME_ZONE = 'UTC'
@@ -113,9 +98,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'collected_static'
@@ -144,8 +126,6 @@ DJOSER = {
     },
 }
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -155,3 +135,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 ADMIN_EMAIL = 'evkasonka@yandex.ru'
 LETTERS_SUBJECT = 'Код подтверждения'
+
+FILE_NAME_PDF = "shop_сart.pdf"
+
+MIN_COOKING_TIME = 1
+MIN_INGREDIENTS_AMOUNT = 1
+
+RECIPE_COOKING_TIME = 1

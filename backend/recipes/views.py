@@ -1,6 +1,6 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -10,12 +10,7 @@ from rest_framework.permissions import (AllowAny,
                                         SAFE_METHODS)
 from rest_framework.status import (HTTP_201_CREATED,
                                    HTTP_204_NO_CONTENT)
-from recipes.models import (Ingredient,
-                            IngredientAmountInRecipe,
-                            IsFavorited,
-                            IsInShoppingCart,
-                            Recipe,
-                            Tag,)
+
 from api.serializers import (IngredientSerializer,
                              RecipeReadSerializer,
                              RecipeWriteSerializer,
@@ -26,6 +21,12 @@ from api.serializers import (IngredientSerializer,
 from api.permissions import AuthorOrReadOnly
 from recipes.filters import (RecipeFilter,
                              IngredientSearchFilter)
+from recipes.models import (Ingredient,
+                            IngredientAmountInRecipe,
+                            IsFavorited,
+                            IsInShoppingCart,
+                            Recipe,
+                            Tag,)
 from recipes.shopping_cart_to_pdf import generate_shopping_list_pdf
 
 
@@ -50,7 +51,6 @@ class TagViewSet(ReadOnlyModelViewSet):
 class RecipeViewSet(ModelViewSet):
 
     queryset = Recipe.objects.all()
-    serializer_class = RecipeWriteSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, AuthorOrReadOnly)
     filter_backends = (DjangoFilterBackend,)
     filterset_class = RecipeFilter

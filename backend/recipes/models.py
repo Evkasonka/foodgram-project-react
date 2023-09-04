@@ -1,7 +1,11 @@
 from django.db import models
 from django.core.validators import MinValueValidator, RegexValidator
+from django.db.models import UniqueConstraint
+
 from colorfield.fields import ColorField
+
 from users.models import User
+from foodgram.settings import MIN_COOKING_TIME, MIN_INGREDIENTS_AMOUNT
 
 
 class Ingredient(models.Model):
@@ -105,8 +109,9 @@ class Recipe(models.Model):
         help_text='Время приготовления (в минутах)',
         validators=[
             MinValueValidator(
-                1,
-                message='Минимальное время приготовления = 1 мин.'
+                MIN_COOKING_TIME,
+                message=f'Минимальное время приготовления = '
+                        f'{MIN_COOKING_TIME} мин.'
             ),
         ],
     )
@@ -136,6 +141,7 @@ class IngredientAmountInRecipe(models.Model):
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
+        related_name='ingredientAmountInRecipe',
         verbose_name='Рецепт',
         help_text='Рецепт'
     )
@@ -143,17 +149,22 @@ class IngredientAmountInRecipe(models.Model):
     amount = models.PositiveSmallIntegerField(
         verbose_name='Количество',
         help_text='Количество',
-        validators=[
+        validators=(
             MinValueValidator(
-                1,
-                message='Количество должно быть больше 0.'
+                MIN_INGREDIENTS_AMOUNT,
+                message=f'Минимальное количество ингредиента = '
+                        f'{MIN_INGREDIENTS_AMOUNT}.'
             ),
-        ]
+        )
     )
 
     class Meta:
         verbose_name = 'Количество ингредиента в рецепте'
         verbose_name_plural = 'Количество ингредиентов в рецептах'
+        constraints = (
+            UniqueConstraint(fields=('ingredient', 'recipe',),
+                             name='unique_ingredient_recipe'),
+        )
 
     def __str__(self):
         return (
@@ -182,6 +193,10 @@ class IsFavorited(models.Model):
     class Meta:
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
+        constraints = (
+            UniqueConstraint(fields=('user', 'recipe',),
+                             name='unique_favorute_recipe'),
+        )
 
     def __str__(self):
         return f'"{self.recipe}" добавлен в избранное {self.user}'
@@ -207,6 +222,10 @@ class IsInShoppingCart(models.Model):
     class Meta:
         verbose_name = 'Список покупок'
         verbose_name_plural = 'списки покупок'
+        constraints = (
+            UniqueConstraint(fields=('user', 'recipe',),
+                             name='unique_shopping_cart'),
+        )
 
     def __str__(self):
         return f'"{self.recipe}" добавлен в список покупок {self.user}'

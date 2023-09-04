@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.admin import display
-from .models import (Ingredient,
-                     Recipe,
-                     Tag,
-                     IngredientAmountInRecipe,
-                     IsFavorited)
+
+from recipes.models import (Ingredient,
+                            Recipe,
+                            Tag,
+                            IngredientAmountInRecipe,
+                            IsFavorited)
 
 
 class IngredientAdmin(admin.ModelAdmin):
@@ -28,10 +29,9 @@ class RecipeAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'author',
                     'name',
-                    'tags',
                     'cooking_time',
-                    'add_in_favorites')
-    list_filter = ('author', 'name', 'tags')
+                    'add_in_favorites',)
+    list_filter = ('author', 'name', 'tags',)
     search_fields = ('name',)
 
     @display(description='Число добавлений рецепта в избранное')
@@ -43,7 +43,7 @@ class IngredientAmountInRecipeAdmin(admin.ModelAdmin):
     list_display = ('id',
                     'ingredient',
                     'recipe',
-                    'amount')
+                    'amount',)
     list_filter = ('ingredient',)
     search_fields = ('ingredient',)
 

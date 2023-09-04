@@ -7,11 +7,13 @@ from rest_framework.permissions import (IsAuthenticated,
                                         IsAuthenticatedOrReadOnly
                                         )
 from rest_framework.response import Response
+
+from djoser.views import UserViewSet
+
 from api.serializers import (CustomUserSerializer,
                              SubscriptionDisplaySerializer,
                              SubscriptionSerializer,
                              )
-from djoser.views import UserViewSet
 from users.models import Subscription, User
 
 
@@ -20,17 +22,17 @@ class CustomUserViewSet(UserViewSet):
     filter_backends = (SearchFilter,)
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = CustomUserSerializer
-    http_method_names = [
-        "get",
-        "post",
-        "patch",
-        "delete",
-    ]
+    http_method_names = (
+        'get',
+        'post',
+        'patch',
+        'delete',
+    )
 
     @action(
         detail=False,
-        methods=("GET", "PATCH"),
-        url_path="me",
+        methods=('GET', 'PATCH'),
+        url_path='me',
         permission_classes=(IsAuthenticated,),
     )
     def me(self, request):

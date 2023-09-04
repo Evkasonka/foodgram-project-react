@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
 from foodgram.validators import validate_username
 
 
@@ -47,11 +48,11 @@ class User(AbstractUser):
     )
 
     class Meta:
-        verbose_name = "Пользователь"
-        verbose_name_plural = "Пользователи"
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
         constraints = (
             models.UniqueConstraint(
-                fields=("username", "email"), name="unique_together",
+                fields=('username', 'email'), name='unique_together',
             ),
         )
 
@@ -83,7 +84,7 @@ class Subscription(models.Model):
         ordering = ('id',)
         constraints = (
             models.UniqueConstraint(
-                fields=['author', 'subscriber'],
+                fields=('author', 'subscriber',),
                 name='unique_subscription'
             ),
         )
