@@ -5,12 +5,12 @@
 
 - Python
 - Django
-- Django Rest
+- Django Rest Framework
 - Docker
 - Gunicorn
 - NGINX
 - PostgreSQL
-- Yandex Cloud
+- Yandex.Cloud
 - Continuous Integration
 - Continuous Deployment
 
