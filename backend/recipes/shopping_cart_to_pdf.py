@@ -1,14 +1,11 @@
 from io import BytesIO
 
 from django.http import HttpResponse
-
+from foodgram.settings import FILE_NAME_PDF
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
-
-from foodgram.settings import FILE_NAME_PDF
-
 
 CONTENT_TYPE = "application/pdf"
 

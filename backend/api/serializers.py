@@ -1,26 +1,14 @@
 from django.core.validators import MinValueValidator
-from rest_framework import serializers
-from rest_framework.validators import UniqueTogetherValidator
-from rest_framework.fields import SerializerMethodField
-
-
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from drf_extra_fields.fields import Base64ImageField
-
-from foodgram.settings import (
-    MIN_RECIPE_COOKING_TIME,
-    MIN_INGREDIENTS_AMOUNT
-)
-from recipes.models import (
-    Ingredient,
-    IsFavorited,
-    IsInShoppingCart,
-    IngredientAmountInRecipe,
-    Recipe,
-    Tag,
-)
-from users.models import User, Subscription
+from foodgram.settings import MIN_INGREDIENTS_AMOUNT, MIN_RECIPE_COOKING_TIME
 from foodgram.validators import validate_username
+from recipes.models import (Ingredient, IngredientAmountInRecipe, IsFavorited,
+                            IsInShoppingCart, Recipe, Tag)
+from rest_framework import serializers
+from rest_framework.fields import SerializerMethodField
+from rest_framework.validators import UniqueTogetherValidator
+from users.models import Subscription, User
 
 
 class CustomUserSerializer(UserSerializer):

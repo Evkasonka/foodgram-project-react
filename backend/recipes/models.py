@@ -1,11 +1,9 @@
-from django.db import models
-from django.core.validators import MinValueValidator, RegexValidator
-from django.db.models import UniqueConstraint
-
 from colorfield.fields import ColorField
-
-from users.models import User
+from django.core.validators import MinValueValidator, RegexValidator
+from django.db import models
+from django.db.models import UniqueConstraint
 from foodgram.settings import MIN_COOKING_TIME, MIN_INGREDIENTS_AMOUNT
+from users.models import User
 
 
 class Ingredient(models.Model):
@@ -126,7 +124,7 @@ class IngredientAmountInRecipe(models.Model):
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        related_name="ingredienе_amount_in_recipe",
+        related_name="ingredient_amount_in_recipe",
         verbose_name="Рецепт",
         help_text="Рецепт",
     )

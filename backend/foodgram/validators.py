@@ -1,7 +1,6 @@
 import re
 
 from django.core.exceptions import ValidationError
-
 from foodgram.errors import ErrorMesage
 
 REGEX_FOR_USERNAME = re.compile(r"^[\w.@+-]+")

@@ -1,37 +1,22 @@
-from django_filters.rest_framework import DjangoFilterBackend
+from api.permissions import AuthorOrReadOnly
+from api.serializers import (FavoriteSerializer, IngredientSerializer,
+                             RecipePreviewSerializer, RecipeReadSerializer,
+                             RecipeWriteSerializer, ShoppingCartSerializer,
+                             TagSerializer)
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
-from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.permissions import (
-    AllowAny,
-    IsAuthenticatedOrReadOnly,
-    IsAuthenticated,
-    SAFE_METHODS,
-)
-from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT
-
-from api.serializers import (
-    IngredientSerializer,
-    RecipeReadSerializer,
-    RecipeWriteSerializer,
-    TagSerializer,
-    RecipePreviewSerializer,
-    FavoriteSerializer,
-    ShoppingCartSerializer,
-)
-from api.permissions import AuthorOrReadOnly
-from recipes.filters import RecipeFilter, IngredientSearchFilter
-from recipes.models import (
-    Ingredient,
-    IngredientAmountInRecipe,
-    IsFavorited,
-    IsInShoppingCart,
-    Recipe,
-    Tag,
-)
+from django_filters.rest_framework import DjangoFilterBackend
+from recipes.filters import IngredientSearchFilter, RecipeFilter
+from recipes.models import (Ingredient, IngredientAmountInRecipe, IsFavorited,
+                            IsInShoppingCart, Recipe, Tag)
 from recipes.shopping_cart_to_pdf import generate_shopping_list_pdf
+from rest_framework.decorators import action
+from rest_framework.permissions import (SAFE_METHODS, AllowAny,
+                                        IsAuthenticated,
+                                        IsAuthenticatedOrReadOnly)
+from rest_framework.response import Response
+from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 
 class IngredientViewSet(ReadOnlyModelViewSet):
