@@ -112,12 +112,7 @@ jobs:
           sudo docker compose -f infra/docker-compose.production.yml pull
           sudo docker compose -f infra/docker-compose.production.yml down
           sudo docker compose -f infra/docker-compose.production.yml up -d
-          sudo docker compose -f infra/docker-compose.production.yml exec backend python manage.py collectstatic --no-input
-          sudo docker compose -f infra/docker-compose.production.yml exec mkdir -p /backend_static/static
-          sudo docker compose -f infra/docker-compose.production.yml exec cp -r /app/collected_static/. /backend_static/static/
-          sudo docker compose -f infra/docker-compose.production.yml exec backend python manage.py makemigrations
-          sudo docker compose -f infra/docker-compose.production.yml exec backend python manage.py migrate
-          sudo docker compose -f infra/docker-compose.production.yml exec backend python manage.py createsuperuser --noinput
+          
   
   send_message:
     runs-on: ubuntu-latest
