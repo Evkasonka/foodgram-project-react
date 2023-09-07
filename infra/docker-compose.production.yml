@@ -60,7 +60,7 @@ services:
     restart: always
   backend:
     image: evkasonka/foodgram_backend
-    env_file: ../backend/.env
+    env_file: ../.env
     command: bash -c "python manage.py collectstatic --no-input &&
                       mkdir -p /backend_static/static &&
                       cp -r /app/collected_static/. /backend_static/static/ &&
