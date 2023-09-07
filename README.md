@@ -81,10 +81,7 @@ git clone https://github.com/evkasonka/foodgram-project-react.git
 sudo apt install docker.io
 sudo apt install docker-compose
 ```
-Находясь в папке infra, скопировать на сервер файлы docker-compose.yml, nginx.conf из папки infra:
-```
-scp docker-compose.yml nginx.conf username@IP:/home/username/ 
-```
+
 В github actions Settings → Secrets в вашем репозитории добавьте:
 ```
 DOCKER_PASSWORD             # пароль от Docker Hub
@@ -97,16 +94,15 @@ TELEGRAM_TO                 # ID телеграм-аккаунта для отп
 TELEGRAM_TOKEN              # токен бота
 ```
 
-Создать и запустить контейнеры Docker, выполнить миграци, cоздать суперпользователя, cобрать статику и заполнить тестоовыми данными базу:
+По команде git push в ветку master будет происходить:
+- Проверка кода на соответствие стандарту PEP8 (с помощью пакета flake8)      #tests
+- Сборка и доставка докер-образов backend       #build_and_push_to_docker_hub
+  и frontend на Docker Hub      #build_frontend_and_push_to_docker_hub
+- Разворачивание проекта на удаленном сервере       #deploy
+- Отправка уведомления пользователю в Телеграм      #send_massage
+
+Создать суперпользователя и заполнить тестоовыми данными базу:
 ```
-sudo docker compose up -d
-sudo docker compose exec backend python manage.py migrate
 sudo docker compose exec backend python manage.py createsuperuser
-sudo docker compose exec backend python manage.py collectstatic --noinput
 sudo docker compose exec backend python manage.py upload_csv
 ```
-По команде git push в ветку master будет происходить:
-- Проверка кода на соответствие стандарту PEP8 (с помощью пакета flake8)    #tests
-- Сборка и доставка докер-образов frontend и backend на Docker Hub          #build_and_push_to_docker_hub
-- Разворачивание проекта на удаленном сервере                               #deploy
-- Отправка уведомления пользователю в Телеграм                              #send_massage
