@@ -61,13 +61,13 @@ services:
   backend:
     image: evkasonka/foodgram_backend
     env_file: ../.env
-    command: bash -c "python manage.py collectstatic --no-input &&
-                      mkdir -p /backend_static/static &&
-                      cp -r /app/collected_static/. /backend_static/static/ &&
-                      python manage.py makemigrations &&
-                      python manage.py migrate &&
-                      python manage.py createsuperuser --noinput &&
-                      gunicorn foodgram.wsgi -b 0.0.0.0:8000"
+    # command: bash -c "python manage.py collectstatic --no-input &&
+    #                   mkdir -p /backend_static/static &&
+    #                   cp -r /app/collected_static/. /backend_static/static/ &&
+    #                   python manage.py makemigrations &&
+    #                   python manage.py migrate &&
+    #                   python manage.py createsuperuser --noinput &&
+    #                   gunicorn foodgram.wsgi -b 0.0.0.0:8000"
     volumes:
       - frontfiles:/backend_static/
       - media:/app/media/
