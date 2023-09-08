@@ -10,7 +10,7 @@ class IngredientAdmin(admin.ModelAdmin):
         "name",
         "measurement_unit",
     )
-    list_filter = ("name",)
+    list_filter = ("measurement_unit",)
     search_fields = ("name",)
 
 
@@ -34,8 +34,6 @@ class RecipeAdmin(admin.ModelAdmin):
         "add_in_favorites",
     )
     list_filter = (
-        "author",
-        "name",
         "tags",
     )
     search_fields = ("name",)
@@ -52,8 +50,10 @@ class IngredientAmountInRecipeAdmin(admin.ModelAdmin):
         "recipe",
         "amount",
     )
-    list_filter = ("ingredient",)
-    search_fields = ("ingredient",)
+    list_filter = ("recipe__tags",)
+    search_fields = ("recipe__author__email",
+                     "recipe__author__username",
+                     "ingredient__name")
 
 
 class IsFavoritedAdmin(admin.ModelAdmin):
@@ -62,8 +62,10 @@ class IsFavoritedAdmin(admin.ModelAdmin):
         "user",
         "recipe",
     )
-    list_filter = ("user",)
-    search_fields = ("user",)
+    list_filter = ("recipe__tags",)
+    search_fields = ("user__email",
+                     "user__username",
+                     "recipe__name")
 
 
 admin.site.register(Ingredient, IngredientAdmin)

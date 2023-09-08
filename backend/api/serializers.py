@@ -6,6 +6,7 @@ from foodgram.validators import validate_username
 from recipes.models import (Ingredient, IngredientAmountInRecipe, IsFavorited,
                             IsInShoppingCart, Recipe, Tag)
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 from rest_framework.fields import SerializerMethodField
 from rest_framework.validators import UniqueTogetherValidator
 from users.models import Subscription, User
@@ -210,10 +211,11 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     def validate_ingredients(self, ingredients):
         ingredients_data = [ingredient.get("id") for ingredient in ingredients]
         if len(ingredients_data) != len(set(ingredients_data)):
-            raise serializers.ValidationError("Ингредиент уже есть в рецепте")
+            raise ValidationError(
+                [{"name": ["Рецепт с таким название уже существует."]}])
         for ingredient in ingredients:
             if int(ingredient.get("amount")) < MIN_INGREDIENTS_AMOUNT:
-                raise serializers.ValidationError(
+                raise ValidationError(
                     f"Количество ингредиента должно быть "
                     f"не меньше {MIN_INGREDIENTS_AMOUNT}"
                 )
@@ -221,7 +223,7 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
 
     def validate_tags(self, tags):
         if len(tags) != len(set(tags)):
-            raise serializers.ValidationError(
+            raise ValidationError(
                 "Теги рецепта не должны провторяться"
             )
         return tags

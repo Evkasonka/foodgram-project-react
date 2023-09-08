@@ -11,7 +11,8 @@ class UserAdmin(admin.ModelAdmin):
         "password",
         "email",
     )
-    list_filter = ("username", "email")
+    list_filter = ("is_admin",)
+    search_fields = ("username", "email")
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
@@ -20,6 +21,11 @@ class SubscriptionAdmin(admin.ModelAdmin):
         "subscriber",
         "author",
     )
+    search_fields = ("subscriber__username",
+                     "subscriber__email",
+                     "author__username",
+                     "author__email",
+                     )
 
 
 admin.site.register(User, UserAdmin)
